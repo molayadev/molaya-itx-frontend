@@ -1,0 +1,98 @@
+:root {
+  /* Primary & Secondary Colors - Fácil de modificar */
+  --color-primary: #00ff88;
+  --color-primary-dark: #00cc6f;
+  --color-secondary: #6be9ff;
+  --color-secondary-dark: #00c3ff;
+  
+  /* Dark Mode Colors */
+  --color-background: #1e1e1e;
+  --color-background-alt: #252526;
+  --color-surface: #2d2d30;
+  --color-surface-hover: #3e3e42;
+  
+  /* Text Colors with proper contrast */
+  --color-text: #cccccc;
+  --color-text-light: #999999;
+  --color-text-dark: #ffffff;
+  
+  /* Borders */
+  --color-border: #3e3e42;
+  --color-border-light: #555555;
+  
+  /* Status Colors */
+  --color-error: #f48771;
+  --color-success: #89d185;
+  --color-warning: #e9b95c;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Border Radius - Rounded Style */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+
+  /* ============================================ */
+  /* VARIANT COLORS - Centralizadas */
+  /* ============================================ */
+  
+  /* Primary Variant */
+  --variant-primary-bg: var(--color-primary);
+  --variant-primary-color: var(--color-background);
+  --variant-primary-hover: var(--color-primary-dark);
+  --variant-primary-border: var(--color-primary);
+  
+  /* Secondary Variant */
+  --variant-secondary-bg: var(--color-secondary);
+  --variant-secondary-color: var(--color-background);
+  --variant-secondary-hover: var(--color-secondary-dark);
+  --variant-secondary-border: var(--color-secondary);
+  
+  /* Danger Variant */
+  --variant-danger-bg: var(--color-error);
+  --variant-danger-color: var(--color-text-dark);
+  --variant-danger-hover: #e07060;
+  --variant-danger-border: var(--color-error);
+  
+  /* Success Variant */
+  --variant-success-bg: var(--color-success);
+  --variant-success-color: var(--color-background);
+  --variant-success-hover: #6bb068;
+  --variant-success-border: var(--color-success);
+  
+  /* Warning Variant */
+  --variant-warning-bg: var(--color-warning);
+  --variant-warning-color: var(--color-background);
+  --variant-warning-hover: #dda042;
+  --variant-warning-border: var(--color-warning);
+  
+  /* Outline Variant */
+  --variant-outline-bg: transparent;
+  --variant-outline-color: var(--color-text);
+  --variant-outline-hover-bg: var(--color-surface-hover);
+  --variant-outline-hover-color: var(--color-primary);
+  --variant-outline-border: var(--color-border-light);
+  --variant-outline-hover-border: var(--color-primary);
+  
+  /* Dark Variant */
+  --variant-dark-bg: var(--color-background);
+  --variant-dark-color: var(--color-text);
+  --variant-dark-hover: var(--color-text-light);
+  --variant-dark-border: var(--color-background);
+}
