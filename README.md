@@ -5,9 +5,10 @@ For this assignment, I decided to go beyond a simple "make it work" approach. Dr
 ## My Approach & Architecture
 
 ### Hexagonal Architecture & SOLID Principles
-Instead of tight coupling, I structured the folder hierarchy based on **Hexagonal Architecture**.
-* **Why?** I wanted to isolate the business logic (Domain) from the UI (React) and external services (API/Storage).
-* **SOLID:** I heavily applied these principles, specifically **Dependency Inversion**. My components depend on interfaces (like `ProductRepository` or `ILogger`), not concrete implementations. This respects the **Single Responsibility Principle**, ensuring each part of the app does exactly one thing well.
+Instead of tight coupling, I structured the folder hierarchy based on **Hexagonal Architecture** based on my experience in back end.
+* **Why?** I wanted to isolate the business logic (Domain) from the UI (React) and external services (API/Storage). This architecture will allow to extract features to different apps or domains, whithout breaking the UI.
+* **SOLID:** I heavily applied these principles, specifically **Dependency Inversion**. My components tries to depend on interfaces (like `ProductRepository` or `ILogger` or `ICache`), not concrete implementations. This respects the **Single Responsibility Principle**, ensuring each part of the app does exactly one thing well.
+API Client will be parametrizable to cache GET calls or not.
 
 ### Manual Dependency Injection (DI)
 I implemented a custom DI system using React Context.

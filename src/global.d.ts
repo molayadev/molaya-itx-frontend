@@ -4,7 +4,6 @@ declare module '*.module.css' {
 }
 
 declare module '*.css' {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const content: any;
+  const content: unknown;
   export default content;
 }
