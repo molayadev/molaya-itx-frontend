@@ -109,7 +109,7 @@ describe("InMemoryCache", () => {
       setTimeout(() => {
         expect(cache.get("key")).toBeNull();
         done();
-      }, 100); // Esperar 100ms
+      }, 100);
     });
 
     it("should handle multiple items with different TTLs", (done) => {
