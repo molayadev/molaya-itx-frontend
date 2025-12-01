@@ -1,2 +1,3 @@
 export { HttpError } from "./HttpError";
-export { ApiClient, RequestConfig, PostOptions } from "./ApiClient";
+export { ApiClient } from "./ApiClient";
+export type { RequestConfig } from "./ApiClient";

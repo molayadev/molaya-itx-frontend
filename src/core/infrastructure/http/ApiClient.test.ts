@@ -235,7 +235,7 @@ describe("ApiClient", () => {
 
       try {
         await client.get("/slow", { timeout: 50 });
-      } catch (error) {
+      } catch {
         expect(mockLogger.error).toHaveBeenCalledWith({
           message: "Request timeout",
           context: { url: "https://api.example.com/slow" },

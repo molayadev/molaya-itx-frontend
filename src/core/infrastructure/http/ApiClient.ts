@@ -11,12 +11,6 @@ export interface RequestConfig extends RequestInit {
   isCacheDisabled?: boolean;
 }
 
-export interface PostOptions {
-  path: string;
-  body: unknown;
-  config?: RequestConfig;
-}
-
 export class ApiClient {
   private defaultTimeout: number;
   private defaultCacheTTL: number;
