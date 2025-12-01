@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
@@ -26,19 +27,18 @@ module.exports = (env, argv) => {
           use: 'ts-loader',
           exclude: /node_modules/,
         },
-        // CONFIGURACIÓN CSS MODULES
         {
           test: /\.css$/,
           use: [
-            'style-loader', // Inyecta estilos al DOM
+            'style-loader',
             {
               loader: 'css-loader',
               options: {
                 modules: {
-                  auto: true, // Solo habilita módulos para archivos .module.css
+                  auto: true, // Habilita CSS Modules solo para archivos .module.css
                   localIdentName: isProduction
-                    ? '[hash:base64]' // Prod: Nombres cortos ofuscados
-                    : '[name]__[local]--[hash:base64:5]', // Dev: Nombre legible
+                    ? '[hash:base64]'
+                    : '[name]__[local]--[hash:base64:5]',
                 },
               },
             },
@@ -48,6 +48,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new HtmlWebpackPlugin({ template: './public/index.html' }),
+      new Dotenv() // Inyecta variables del archivo .env a process.env
     ],
     devServer: {
       historyApiFallback: true,
