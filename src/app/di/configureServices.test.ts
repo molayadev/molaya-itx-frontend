@@ -24,6 +24,7 @@ describe("configureServices", () => {
       expect(services.logger).toBeDefined();
       expect(services.cache).toBeDefined();
       expect(services.apiClient).toBeDefined();
+      expect(services.productRepository).toBeDefined();
     });
 
     it("should return the same instance on multiple calls", () => {
@@ -55,6 +56,13 @@ describe("configureServices", () => {
       const services2 = configureServices();
 
       expect(services1.apiClient).toBe(services2.apiClient);
+    });
+
+    it("should return same productRepository instance on multiple calls", () => {
+      const services1 = configureServices();
+      const services2 = configureServices();
+
+      expect(services1.productRepository).toBe(services2.productRepository);
     });
   });
 
