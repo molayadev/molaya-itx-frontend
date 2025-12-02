@@ -2,6 +2,7 @@ import { ServiceContainer } from "./ServiceContainer";
 import { ServiceFactory } from "@core/infrastructure/factories/ServiceFactory";
 import { ApiClient } from "@core/infrastructure/http/ApiClient";
 import { HttpProductRepository } from "@features/products/infrastructure/repositories/HttpProductRepository";
+import { HttpCartRepository } from "@features/cart/infrastructure/repositories/HttpCartRepository";
 
 type CacheSystemType = 'local-storage' | 'in-memory';
 const DEFAULT_API_URL = "https://itx-frontend-test.onrender.com/api";
@@ -23,9 +24,11 @@ class ServiceRegistry {
     const cache = ServiceFactory.createCache(cacheSystem);
     const apiClient = new ApiClient(apiUrl, logger, cache);
     const productRepository = new HttpProductRepository(apiClient);
+    const cartRepository = new HttpCartRepository(apiClient);
 
     this.instance = {
       productRepository,
+      cartRepository,
       apiClient,
       cache,
       logger,
