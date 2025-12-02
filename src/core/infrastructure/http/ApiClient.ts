@@ -11,6 +11,12 @@ export interface RequestConfig extends RequestInit {
   isCacheDisabled?: boolean;
 }
 
+export interface PostOptions {
+  path: string;
+  body: unknown;
+  config?: RequestConfig;
+}
+
 export class ApiClient {
   private defaultTimeout: number;
   private defaultCacheTTL: number;
@@ -27,6 +33,19 @@ export class ApiClient {
 
   async get<T>(path: string, config?: RequestConfig): Promise<T> {
     return this.request<T>(path, { ...config, method: "GET" });
+  }
+
+  async post<T>({ path, body, config }: PostOptions): Promise<T> {
+    return this.request<T>(path, {
+      ...config,
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        ...config?.headers,
+      },
+      isCacheDisabled: true,
+    });
   }
 
   private async request<T>(path: string, config: RequestConfig): Promise<T> {

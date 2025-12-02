@@ -273,4 +273,74 @@ describe("ApiClient", () => {
       );
     });
   });
+
+   describe("POST requests", () => {
+    it("should send POST with JSON body", async () => {
+      const mockData = { id: 1 };
+      const postBody = { name: "New Product", price: 99.99 };
+
+      (global.fetch as jest.Mock).mockResolvedValue({
+        ok: true,
+        json: async () => mockData,
+      });
+
+      const result = await client.post({
+        path: "/products",
+        body: postBody,
+      });
+
+      expect(result).toEqual(mockData);
+      expect(global.fetch).toHaveBeenCalledWith(
+        "https://api.example.com/products",
+        expect.objectContaining({
+          method: "POST",
+          body: JSON.stringify(postBody),
+          headers: expect.objectContaining({
+            "Content-Type": "application/json",
+          }),
+        })
+      );
+    });
+
+    it("should merge custom headers with default Content-Type", async () => {
+      (global.fetch as jest.Mock).mockResolvedValue({
+        ok: true,
+        json: async () => ({}),
+      });
+
+      await client.post({
+        path: "/cart",
+        body: { id: "ProductID_01" },
+        config: {
+          headers: {
+            Authorization: "Bearer token123",
+          },
+        },
+      });
+
+      expect(global.fetch).toHaveBeenCalledWith(
+        "https://api.example.com/cart",
+        expect.objectContaining({
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer token123",
+          },
+        })
+      );
+    });
+
+    it("should not cache POST requests", async () => {
+      (global.fetch as jest.Mock).mockResolvedValue({
+        ok: true,
+        json: async () => ({ id: 1 }),
+      });
+
+      await client.post({
+        path: "/cart",
+        body: { id: "ProductID_01" },
+      });
+
+      expect(mockCache.set).not.toHaveBeenCalled();
+    });
+  });
 });
