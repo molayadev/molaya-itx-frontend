@@ -21,3 +21,10 @@ export type { ProductImageProps } from './ProductImage/ProductImage';
 
 export { Header } from './Header';
 export type { HeaderProps } from './Header/Header';
+
+export { InfiniteScrollTrigger } from './InfiniteScrollTrigger';
+export type { InfiniteScrollTriggerProps } from './InfiniteScrollTrigger/InfiniteScrollTrigger';
+
+export { AppHeader } from './AppHeader';
+export { AppLayout } from './AppLayout';
+export type { AppHeaderProps } from './AppHeader/AppHeader';
