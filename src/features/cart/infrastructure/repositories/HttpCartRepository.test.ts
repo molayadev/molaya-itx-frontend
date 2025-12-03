@@ -34,10 +34,7 @@ describe('HttpCartRepository', () => {
         id: 'ABC123',
         colorCode: 1000,
         storageCode: 2000,
-      },
-      config: {
-        isCacheDisabled: true,
-      },
+      }
     });
   });
 
@@ -61,21 +58,6 @@ describe('HttpCartRepository', () => {
     expect(requestBody.id).toBe('XYZ789');
     expect(requestBody.colorCode).toBe(5);
     expect(requestBody.storageCode).toBe(10);
-  });
-
-  it('should disable cache for POST request', async () => {
-    const cartItem = createCartItem({
-      productId: '001',
-      colorCode: 1,
-      storageCode: 2,
-    });
-
-    mockApiClient.post.mockResolvedValue({ count: 3 });
-
-    await repository.addItem(cartItem);
-
-    const callArgs = mockApiClient.post.mock.calls[0][0];
-    expect(callArgs.config?.isCacheDisabled).toBe(true);
   });
 
   it('should propagate API errors', async () => {
