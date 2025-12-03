@@ -5,8 +5,10 @@ import styles from './ProductImage.module.css';
 export interface ProductImageProps {
   src: string;
   alt: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'full';
   onError?: () => void;
+  hoverEffect?: 'zoom' | 'none';
+  backgroundColor?: string;
 }
 
 export const ProductImage: React.FC<ProductImageProps> = ({
@@ -14,6 +16,8 @@ export const ProductImage: React.FC<ProductImageProps> = ({
   alt,
   size = 'medium',
   onError,
+  hoverEffect = 'none',
+  backgroundColor = '#ffffff',
 }) => {
   const [imgSrc, setImgSrc] = React.useState(src);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -23,8 +27,19 @@ export const ProductImage: React.FC<ProductImageProps> = ({
     onError?.();
   };
 
+  const containerClasses = [
+    styles.container,
+    styles[size],
+    hoverEffect === 'zoom' ? styles.zoomable : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
-    <div className={`${styles.container} ${styles[size]}`}>
+    <div 
+      className={containerClasses}
+      style={{ backgroundColor }}
+    >
       {isLoading && (
         <div className={styles.spinnerWrapper}>
           <Spinner size="medium" />
