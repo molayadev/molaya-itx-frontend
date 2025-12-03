@@ -18,19 +18,21 @@ describe('useProductSearch', () => {
   });
 
   it('should return all products when query is empty', () => {
-    const { result } = renderHook(() => useProductSearch(mockProducts));
+    const { result } = renderHook(() => useProductSearch(mockProducts, ''));
     expect(result.current.filteredProducts).toHaveLength(3);
     expect(result.current.filteredProducts).toEqual(mockProducts);
   });
 
   it('should filter by brand after debounce', async () => {
-    const { result } = renderHook(() => useProductSearch(mockProducts, 250));
+    const { result, rerender } = renderHook(
+      ({ query }) => useProductSearch(mockProducts, query, 250),
+      { initialProps: { query: '' } }
+    );
     
-    act(() => {
-      result.current.setSearchQuery('apple');
-    });
-
     expect(result.current.filteredProducts).toHaveLength(3);
+    expect(result.current.isSearching).toBe(false);
+
+    rerender({ query: 'apple' });
     expect(result.current.isSearching).toBe(true);
 
     act(() => {
@@ -44,10 +46,14 @@ describe('useProductSearch', () => {
   });
 
   it('should filter by model after debounce', async () => {
-    const { result } = renderHook(() => useProductSearch(mockProducts, 250));
+    const { result, rerender } = renderHook(
+      ({ query }) => useProductSearch(mockProducts, query, 250),
+      { initialProps: { query: '' } }
+    );
+    
+    rerender({ query: 'galaxy' });
     
     act(() => {
-      result.current.setSearchQuery('galaxy');
       jest.advanceTimersByTime(250);
     });
 
@@ -58,10 +64,14 @@ describe('useProductSearch', () => {
   });
 
   it('should be case insensitive', async () => {
-    const { result } = renderHook(() => useProductSearch(mockProducts, 250));
+    const { result, rerender } = renderHook(
+      ({ query }) => useProductSearch(mockProducts, query, 250),
+      { initialProps: { query: '' } }
+    );
+    
+    rerender({ query: 'IPHONE' });
     
     act(() => {
-      result.current.setSearchQuery('IPHONE');
       jest.advanceTimersByTime(250);
     });
 
@@ -72,10 +82,14 @@ describe('useProductSearch', () => {
   });
 
   it('should trim whitespace from query', async () => {
-    const { result } = renderHook(() => useProductSearch(mockProducts, 250));
+    const { result, rerender } = renderHook(
+      ({ query }) => useProductSearch(mockProducts, query, 250),
+      { initialProps: { query: '' } }
+    );
+    
+    rerender({ query: '  samsung  ' });
     
     act(() => {
-      result.current.setSearchQuery('  samsung  ');
       jest.advanceTimersByTime(250);
     });
 
@@ -86,10 +100,14 @@ describe('useProductSearch', () => {
   });
 
   it('should return empty array when no matches found', async () => {
-    const { result } = renderHook(() => useProductSearch(mockProducts, 250));
+    const { result, rerender } = renderHook(
+      ({ query }) => useProductSearch(mockProducts, query, 250),
+      { initialProps: { query: '' } }
+    );
+    
+    rerender({ query: 'nokia' });
     
     act(() => {
-      result.current.setSearchQuery('nokia');
       jest.advanceTimersByTime(250);
     });
 
@@ -98,23 +116,15 @@ describe('useProductSearch', () => {
     });
   });
 
-  it('should update searchQuery state immediately', () => {
-    const { result } = renderHook(() => useProductSearch(mockProducts));
-    
-    expect(result.current.searchQuery).toBe('');
-    
-    act(() => {
-      result.current.setSearchQuery('test query');
-    });
-
-    expect(result.current.searchQuery).toBe('test query');
-  });
-
   it('should filter by partial matches', async () => {
-    const { result } = renderHook(() => useProductSearch(mockProducts, 250));
+    const { result, rerender } = renderHook(
+      ({ query }) => useProductSearch(mockProducts, query, 250),
+      { initialProps: { query: '' } }
+    );
+    
+    rerender({ query: 'Pro' });
     
     act(() => {
-      result.current.setSearchQuery('Pro');
       jest.advanceTimersByTime(250);
     });
 
@@ -125,30 +135,37 @@ describe('useProductSearch', () => {
   });
 
   it('should cancel previous debounce when query changes quickly', async () => {
-    const { result } = renderHook(() => useProductSearch(mockProducts, 250));
+    const { result, rerender } = renderHook(
+      ({ query }) => useProductSearch(mockProducts, query, 250),
+      { initialProps: { query: '' } }
+    );
+    
+    rerender({ query: 'app' });
     
     act(() => {
-      result.current.setSearchQuery('app');
       jest.advanceTimersByTime(100);
-      result.current.setSearchQuery('apple');
+    });
+    
+    rerender({ query: 'apple' });
+    
+    act(() => {
       jest.advanceTimersByTime(250);
     });
 
     await waitFor(() => {
       expect(result.current.filteredProducts).toHaveLength(2);
-      expect(result.current.searchQuery).toBe('apple');
     });
   });
 
   it('should indicate searching state correctly', () => {
-    const { result } = renderHook(() => useProductSearch(mockProducts, 250));
+    const { result, rerender } = renderHook(
+      ({ query }) => useProductSearch(mockProducts, query, 250),
+      { initialProps: { query: '' } }
+    );
     
     expect(result.current.isSearching).toBe(false);
     
-    act(() => {
-      result.current.setSearchQuery('test');
-    });
-
+    rerender({ query: 'test' });
     expect(result.current.isSearching).toBe(true);
     
     act(() => {
@@ -159,10 +176,14 @@ describe('useProductSearch', () => {
   });
 
   it('should use custom debounce time', async () => {
-    const { result } = renderHook(() => useProductSearch(mockProducts, 500));
+    const { result, rerender } = renderHook(
+      ({ query }) => useProductSearch(mockProducts, query, 500),
+      { initialProps: { query: '' } }
+    );
+    
+    rerender({ query: 'apple' });
     
     act(() => {
-      result.current.setSearchQuery('apple');
       jest.advanceTimersByTime(250);
     });
 

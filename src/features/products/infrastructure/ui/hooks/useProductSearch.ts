@@ -1,8 +1,7 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { Product } from '@features/products/domain/entities/Product.entity';
 
-export const useProductSearch = (products: Product[], debounceMs: number = 250) => {
-  const [searchQuery, setSearchQuery] = useState('');
+export const useProductSearch = (products: Product[], searchQuery: string, debounceMs: number = 250) => {
   const [debouncedQuery, setDebouncedQuery] = useState('');
 
   useEffect(() => {
@@ -31,8 +30,6 @@ export const useProductSearch = (products: Product[], debounceMs: number = 250) 
   }, [products, debouncedQuery]);
 
   return {
-    searchQuery,
-    setSearchQuery,
     filteredProducts,
     isSearching: searchQuery !== debouncedQuery,
   };

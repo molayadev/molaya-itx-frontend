@@ -1,0 +1,42 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md) 0;
+}
+
+/* Flexbox responsivo - máximo 4 columnas en desktop */
+.grid > * {
+  flex: 1 1 calc(25% - var(--spacing-lg)); /* 4 columnas en desktop */
+  min-width: 250px; /* Ancho mínimo para mantener legibilidad */
+}
+
+/* Tablet (3 columnas) */
+@media (max-width: 1024px) {
+  .grid > * {
+    flex: 1 1 calc(33.333% - var(--spacing-lg));
+  }
+}
+
+/* Mobile (2 columnas) */
+@media (max-width: 768px) {
+  .grid > * {
+    flex: 1 1 calc(50% - var(--spacing-lg));
+  }
+}
+
+/* Mobile pequeño (1 columna) */
+@media (max-width: 480px) {
+  .grid > * {
+    flex: 1 1 100%;
+  }
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: var(--color-text-light);
+  font-size: 1.125rem;
+}
