@@ -17,7 +17,8 @@
     "paths": {
       "@core/*": ["core/*"],
       "@features/*": ["features/*"],
-      "@shared/*": ["shared/*"]
+      "@shared/*": ["shared/*"],
+      "@app/*": ["app/*"]
     }
   },
   "include": ["src"]
