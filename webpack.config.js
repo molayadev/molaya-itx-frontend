@@ -18,7 +18,8 @@ module.exports = (env, argv) => {
       alias: {
         '@core': path.resolve(__dirname, 'src/core/'),
         '@features': path.resolve(__dirname, 'src/features/'),
-        '@shared': path.resolve(__dirname, 'src/shared/')
+        '@shared': path.resolve(__dirname, 'src/shared/'),
+        '@app': path.resolve(__dirname, 'src/app/')
       }
     },
     module: {
