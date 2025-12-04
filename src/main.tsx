@@ -6,7 +6,7 @@ import { configureServices } from '@app/di';
 import { AppLayout } from '@shared/ui/components';
 import { Home } from '@shared/ui/pages';
 import { DesignSystemPage } from '@shared/ui/pages/DesignSystemPage';
-import { ProductListPage } from '@features/products/infrastructure/ui/pages';
+import { ProductListPage, ProductDetailPage } from '@features/products/infrastructure/ui/pages';
 import '@shared/ui/styles/global.css';
 
 const services = configureServices();
@@ -19,7 +19,7 @@ const App = () => {
           {/* Routes with layout (AppHeader) */}
           <Route element={<AppLayout />}>
             <Route path="/products" element={<ProductListPage />} />
-            {/* Future routes: PDP, Cart, etc. */}
+            <Route path="/product/:id" element={<ProductDetailPage />} />
           </Route>
 
           {/* Routes without layout */}
