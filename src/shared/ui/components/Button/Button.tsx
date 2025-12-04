@@ -11,6 +11,7 @@ export interface ButtonProps {
   className?: string;
   iconBefore?: React.ReactNode;
   iconAfter?: React.ReactNode;
+  'aria-label'?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -23,10 +24,11 @@ export const Button: React.FC<ButtonProps> = ({
   className = '',
   iconBefore,
   iconAfter,
+  'aria-label': ariaLabel,
 }) => {
   const buttonClasses = [
     styles.button,
-    variant, // Usa la clase global directamente
+    variant,
     fullWidth ? styles.fullWidth : '',
     className,
   ]
@@ -39,6 +41,7 @@ export const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
       className={buttonClasses}
+      aria-label={ariaLabel}
     >
       {iconBefore && <span className={styles.icon}>{iconBefore}</span>}
       {children}

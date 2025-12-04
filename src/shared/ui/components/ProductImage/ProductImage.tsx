@@ -9,6 +9,7 @@ export interface ProductImageProps {
   onError?: () => void;
   hoverEffect?: 'zoom' | 'none';
   backgroundColor?: string;
+  unavailable?: boolean;
 }
 
 export const ProductImage: React.FC<ProductImageProps> = ({
@@ -18,6 +19,7 @@ export const ProductImage: React.FC<ProductImageProps> = ({
   onError,
   hoverEffect = 'none',
   backgroundColor = '#ffffff',
+  unavailable = false,
 }) => {
   const [imgSrc, setImgSrc] = React.useState(src);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -53,6 +55,11 @@ export const ProductImage: React.FC<ProductImageProps> = ({
         onError={handleError}
         loading="lazy"
       />
+      {unavailable && (
+        <div className={styles.unavailableOverlay}>
+          <span className={styles.unavailableText}>UNAVAILABLE</span>
+        </div>
+      )}
     </div>
   );
 };

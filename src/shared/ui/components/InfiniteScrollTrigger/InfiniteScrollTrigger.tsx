@@ -9,12 +9,6 @@ export interface InfiniteScrollTriggerProps {
   threshold?: number;
 }
 
-/**
- * Componente que detecta cuando el usuario hace scroll hasta el final
- * y dispara la carga de más items (Infinite Scroll)
- * 
- * Usa IntersectionObserver para mejor performance
- */
 export const InfiniteScrollTrigger: React.FC<InfiniteScrollTriggerProps> = ({
   onLoadMore,
   hasMore,
@@ -37,7 +31,7 @@ export const InfiniteScrollTrigger: React.FC<InfiniteScrollTriggerProps> = ({
       },
       {
         threshold,
-        rootMargin: '100px', // Empieza a cargar 100px antes de llegar
+        rootMargin: '100px',
       }
     );
 

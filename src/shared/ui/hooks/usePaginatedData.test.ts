@@ -32,7 +32,7 @@ describe('usePaginatedData', () => {
       const { result } = renderHook(() => usePaginatedData(items, { initialPage: 2 }));
 
       expect(result.current.currentPage).toBe(2);
-      expect(result.current.displayedItems).toHaveLength(50); // 2 pages * 25
+      expect(result.current.displayedItems).toHaveLength(50);
     });
 
     it('should handle empty array', () => {
@@ -65,17 +65,17 @@ describe('usePaginatedData', () => {
       const { result } = renderHook(() => usePaginatedData(items, { pageSize: 20 }));
 
       act(() => {
-        result.current.loadMore(); // Page 2
+        result.current.loadMore();
       });
       expect(result.current.displayedItems).toHaveLength(40);
 
       act(() => {
-        result.current.loadMore(); // Page 3
+        result.current.loadMore();
       });
       expect(result.current.displayedItems).toHaveLength(60);
 
       act(() => {
-        result.current.loadMore(); // Page 4
+        result.current.loadMore();
       });
       expect(result.current.displayedItems).toHaveLength(80);
     });

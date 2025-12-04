@@ -5,22 +5,19 @@ import { Badge } from '@shared/ui/components';
 import styles from './AppHeader.module.css';
 
 export interface AppHeaderProps {
-  // Search functionality
   searchQuery?: string;
   onSearchChange?: (query: string) => void;
   isSearching?: boolean;
   showSearch?: boolean;
   searchPlaceholder?: string;
   
-  // Cart functionality
   cartItemsCount?: number;
   onCartClick?: () => void;
   showCart?: boolean;
   
-  // Branding
   appName?: string;
 }
-
+const MAX_COUNT_BADGE = 99;
 export const AppHeader: React.FC<AppHeaderProps> = ({
   searchQuery = '',
   onSearchChange,
@@ -71,7 +68,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               {cartItemsCount > 0 && (
                 <div className={styles.cartBadge}>
                   <Badge variant="primary">
-                    {cartItemsCount > 99 ? '99+' : cartItemsCount}
+                    {cartItemsCount > MAX_COUNT_BADGE ? `${MAX_COUNT_BADGE}+` : cartItemsCount}
                   </Badge>
                 </div>
               )}

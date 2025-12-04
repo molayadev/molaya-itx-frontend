@@ -16,7 +16,6 @@ export const Card: React.FC<CardProps> = ({
   variant = 'default',
   className = '',
 }) => {
-  // Mapeo de variante a nombre de clase en camelCase
   const variantClassMap: Record<string, string> = {
     primary: styles.cardPrimary,
     secondary: styles.cardSecondary,

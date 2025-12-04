@@ -11,11 +11,9 @@ export const AppLayout: React.FC = () => {
   const { products } = useProducts();
   const { isSearching } = useProductSearch(products, searchQuery);
 
-  // Configuración por ruta
   const isProductListPage = location.pathname === '/products';
   const isCartPage = location.pathname === '/cart';
 
-  // Header config basado en la ruta
   const showSearch = isProductListPage;
   const showCart = !isCartPage;
 
@@ -27,7 +25,7 @@ export const AppLayout: React.FC = () => {
         isSearching={isSearching}
         showSearch={showSearch}
         showCart={showCart}
-        cartItemsCount={0} // TODO: Get from cart context
+        cartItemsCount={0}
       />
       
       <main className={styles.main}>
