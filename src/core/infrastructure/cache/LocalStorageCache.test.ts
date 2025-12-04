@@ -13,15 +13,15 @@ describe("LocalStorageCache", () => {
     });
 
     it("should return null for expired item", () => {
-      cache.set("expired", { value: "data", ttlMs: -1000 }); // Ya expirado
+      cache.set("expired", { value: "data", ttlMs: -1000 }); 
       expect(cache.get("expired")).toBeNull();
     });
 
     it("should clean up expired items automatically", () => {
       cache.set("expired", { value: "data", ttlMs: -1000 });
-      cache.get("expired"); // Trigger cleanup
+      cache.get("expired"); 
       
-      // Verificar que no existe en caché después del get
+      
       expect(cache.get("expired")).toBeNull();
     });
   });
@@ -99,12 +99,12 @@ describe("LocalStorageCache", () => {
 
   describe("TTL expiration", () => {
     it("should return value before expiration", () => {
-      cache.set("key", { value: "data", ttlMs: 10000 }); // 10 segundos
+      cache.set("key", { value: "data", ttlMs: 10000 }); 
       expect(cache.get("key")).toBe("data");
     });
 
     it("should return null after expiration", (done) => {
-      cache.set("key", { value: "data", ttlMs: 50 }); // 50ms
+      cache.set("key", { value: "data", ttlMs: 50 }); 
       
       setTimeout(() => {
         expect(cache.get("key")).toBeNull();

@@ -23,9 +23,8 @@ describe("ConsoleLogger", () => {
     jest.restoreAllMocks();
   });
 
-  // Test parametrizado para los métodos básicos (debug, info, warn)
   const parametrizedTestsLoggerLevels = [
-{
+    {
       method: "debug" as const,
       level: "DEBUG",
       color: "color: gray",
@@ -48,28 +47,31 @@ describe("ConsoleLogger", () => {
       level: "ERROR",
       color: "color: red",
       message: "Error message",
-    }
+    },
   ];
-  describe.each(parametrizedTestsLoggerLevels)("$method method", ({ method, level, color, message }) => {
-    it("should call console.$method with formatted message", () => {
-      logger[method]({ message });
+  describe.each(parametrizedTestsLoggerLevels)(
+    "$method method",
+    ({ method, level, color, message }) => {
+      it("should call console.$method with formatted message", () => {
+        logger[method]({ message });
 
-      expect(consoleSpies[method]).toHaveBeenCalledWith(
-        `%c[${level}] ${message}`,
-        color,
-        ""
-      );
-    });
+        expect(consoleSpies[method]).toHaveBeenCalledWith(
+          `%c[${level}] ${message}`,
+          color,
+          ""
+        );
+      });
 
-    it("should call console.$method with message and context", () => {
-      const context = { key: "value", num: 123 };
-      logger[method]({ message, context });
+      it("should call console.$method with message and context", () => {
+        const context = { key: "value", num: 123 };
+        logger[method]({ message, context });
 
-      expect(consoleSpies[method]).toHaveBeenCalledWith(
-        `%c[${level}] ${message}`,
-        color,
-        context
-      );
-    });
-  });
+        expect(consoleSpies[method]).toHaveBeenCalledWith(
+          `%c[${level}] ${message}`,
+          color,
+          context
+        );
+      });
+    }
+  );
 });
