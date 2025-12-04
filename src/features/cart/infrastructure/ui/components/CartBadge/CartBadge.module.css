@@ -1,0 +1,35 @@
+.cartButton {
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.cartButton:hover {
+  transform: scale(1.1);
+}
+
+.cartButton:active {
+  transform: scale(0.95);
+}
+
+.cartIcon {
+  font-size: 1.5rem;
+  display: block;
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0.125rem 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}

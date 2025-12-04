@@ -25,7 +25,6 @@ export const AppLayout: React.FC = () => {
         isSearching={isSearching}
         showSearch={showSearch}
         showCart={showCart}
-        cartItemsCount={0}
       />
       
       <main className={styles.main}>
