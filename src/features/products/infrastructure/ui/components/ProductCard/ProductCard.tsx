@@ -17,11 +17,10 @@ const isUnavailable = (price: number): boolean => isNaN(price);
 export const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
   const unavailable = isUnavailable(product.price);
   const cardStyle = unavailable ? styles.disabled : '';
-  const hoverable = !unavailable;
   const hoverEffect = unavailable ? 'none' : 'zoom';
-  const onClickAction = unavailable ? undefined : () => onClick(product.id);
+  const onClickAction = () => onClick(product.id);
   return (
-    <Card className={cardStyle} hoverable={hoverable} onClick={onClickAction}>
+    <Card className={cardStyle} hoverable onClick={onClickAction}>
       <div className={styles.imageContainer}>
         <ProductImage
           src={product.imgUrl}
@@ -29,6 +28,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) =>
           size="medium"
           hoverEffect={hoverEffect}
           backgroundColor="#ffffff"
+          unavailable={unavailable}
         />
       </div>
       
