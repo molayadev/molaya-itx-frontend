@@ -9,6 +9,9 @@ import {
   Badge,
   ProductImage,
   Header,
+  RadioGroup,
+  QuantitySelector,
+  Collapsible,
 } from '@shared/ui/components';
 import styles from './DesignSystemPage.module.css';
 
@@ -18,6 +21,12 @@ export const DesignSystemPage: React.FC = () => {
   const [selectValue, setSelectValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
+  const [radioValue, setRadioValue] = useState('red');
+  const [radioSizeValue, setRadioSizeValue] = useState('m');
+  const [quantity1, setQuantity1] = useState(1);
+  const [quantity2, setQuantity2] = useState(3);
+  const [quantity3, setQuantity3] = useState(1);
+  const [quantity4, setQuantity4] = useState(50);
 
   const selectOptions: SelectOption[] = [
     { value: 'xs', label: 'Extra Small' },
@@ -29,7 +38,7 @@ export const DesignSystemPage: React.FC = () => {
 
   const handleValidateInput = () => {
     if (inputValue.length < 3) {
-      setInputError('Debe tener al menos 3 caracteres');
+      setInputError('Must have at least 3 characters');
     } else {
       setInputError('');
     }
@@ -39,7 +48,7 @@ export const DesignSystemPage: React.FC = () => {
     <div className={styles.container}>
       <Header
         title="🎨 Design System"
-        subtitle="Biblioteca de componentes UI reutilizables construidos con React, TypeScript y CSS Modules"
+        subtitle="Reusable UI component library built with React, TypeScript and CSS Modules"
         showBackButton={true}
         backTo="/"
       >
@@ -51,7 +60,7 @@ export const DesignSystemPage: React.FC = () => {
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <h2>Buttons</h2>
-            <p>Botones con diferentes variantes y estados</p>
+            <p>Buttons with different variants and states</p>
           </div>
           
           <div className={styles.demo}>
@@ -82,7 +91,7 @@ export const DesignSystemPage: React.FC = () => {
           </div>
 
           <div className={styles.demo}>
-            <h3>Estados</h3>
+            <h3>States</h3>
             <div className={styles.row}>
               <Button variant="primary">Enabled</Button>
               <Button variant="primary" disabled>
@@ -96,22 +105,22 @@ export const DesignSystemPage: React.FC = () => {
           </div>
 
           <div className={styles.demo}>
-            <h3>Botones con Iconos</h3>
+            <h3>Buttons with Icons</h3>
             <div className={styles.row}>
               <Button variant="primary" iconBefore="🚀">
-                Con icono antes
+                Icon before
               </Button>
               <Button variant="secondary" iconAfter="→">
-                Con icono después
+                Icon after
               </Button>
               <Button variant="success" iconBefore="✓" iconAfter="→">
-                Con ambos iconos
+                Both icons
               </Button>
               <Button variant="outline" iconBefore="📦">
-                Agregar al carrito
+                Add to cart
               </Button>
               <Button variant="danger" iconAfter="🗑️">
-                Eliminar
+                Delete
               </Button>
             </div>
           </div>
@@ -124,11 +133,11 @@ export const DesignSystemPage: React.FC = () => {
           </div>
 
           <div className={styles.demo}>
-            <h3>Con íconos (simulado con emojis)</h3>
+            <h3>With icons (simulated with emojis)</h3>
             <div className={styles.row}>
-              <Button variant="primary">🛒 Añadir al carrito</Button>
-              <Button variant="secondary">❤️ Favoritos</Button>
-              <Button variant="primary">🔍 Buscar</Button>
+              <Button variant="primary">🛒 Add to cart</Button>
+              <Button variant="secondary">❤️ Favorites</Button>
+              <Button variant="primary">🔍 Search</Button>
             </div>
           </div>
         </section>
@@ -137,16 +146,16 @@ export const DesignSystemPage: React.FC = () => {
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <h2>Input Fields</h2>
-            <p>Campos de texto con validación y estados</p>
+            <p>Text fields with validation and states</p>
           </div>
 
           <div className={styles.demo}>
-            <h3>Input básico</h3>
+            <h3>Basic Input</h3>
             <Input
               id="basic-input"
               name="basic"
-              label="Nombre"
-              placeholder="Escribe tu nombre"
+              label="Name"
+              placeholder="Enter your name"
               value={inputValue}
               onChange={setInputValue}
               fullWidth
@@ -154,11 +163,11 @@ export const DesignSystemPage: React.FC = () => {
           </div>
 
           <div className={styles.demo}>
-            <h3>Input con validación</h3>
+            <h3>Input with validation</h3>
             <Input
               id="validation-input"
               name="validation"
-              label="Username (mínimo 3 caracteres)"
+              label="Username (minimum 3 characters)"
               placeholder="username"
               value={inputValue}
               onChange={(val) => {
@@ -169,19 +178,19 @@ export const DesignSystemPage: React.FC = () => {
               fullWidth
             />
             <Button variant="secondary" onClick={handleValidateInput}>
-              Validar
+              Validate
             </Button>
           </div>
 
           <div className={styles.demo}>
-            <h3>Tipos de input</h3>
+            <h3>Input types</h3>
             <div className={styles.column}>
               <Input
                 id="email-input"
                 name="email"
                 type="email"
                 label="Email"
-                placeholder="tu@email.com"
+                placeholder="your@email.com"
                 value={emailValue}
                 onChange={setEmailValue}
                 fullWidth
@@ -190,7 +199,7 @@ export const DesignSystemPage: React.FC = () => {
                 id="password-input"
                 name="password"
                 type="password"
-                label="Contraseña"
+                label="Password"
                 placeholder="••••••••"
                 value={passwordValue}
                 onChange={setPasswordValue}
@@ -199,9 +208,9 @@ export const DesignSystemPage: React.FC = () => {
               <Input
                 id="disabled-input"
                 name="disabled"
-                label="Campo deshabilitado"
-                placeholder="No editable"
-                value="Valor fijo"
+                label="Disabled field"
+                placeholder="Not editable"
+                value="Fixed value"
                 onChange={() => {}}
                 disabled
                 fullWidth
@@ -214,34 +223,34 @@ export const DesignSystemPage: React.FC = () => {
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <h2>Select Dropdown</h2>
-            <p>Menús desplegables para selección de opciones</p>
+            <p>Dropdown menus for selecting options</p>
           </div>
 
           <div className={styles.demo}>
-            <h3>Select básico</h3>
+            <h3>Basic Select</h3>
             <Select
               id="size-select"
               name="size"
-              label="Selecciona una talla"
+              label="Select a size"
               options={selectOptions}
               value={selectValue}
               onChange={(value) => setSelectValue(String(value))}
-              placeholder="Elige una talla"
+              placeholder="Choose a size"
               fullWidth
             />
             {selectValue && (
               <p className={styles.resultText}>
-                Talla seleccionada: <strong>{selectValue}</strong>
+                Selected size: <strong>{selectValue}</strong>
               </p>
             )}
           </div>
 
           <div className={styles.demo}>
-            <h3>Select deshabilitado</h3>
+            <h3>Disabled Select</h3>
             <Select
               id="disabled-select"
               name="disabled"
-              label="Select deshabilitado"
+              label="Disabled select"
               options={selectOptions}
               value="m"
               onChange={() => {}}
@@ -255,71 +264,71 @@ export const DesignSystemPage: React.FC = () => {
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <h2>Cards</h2>
-            <p>Contenedores para agrupar contenido relacionado</p>
+            <p>Containers for grouping related content</p>
           </div>
 
           <div className={styles.demo}>
-            <h3>Card básica</h3>
+            <h3>Basic Card</h3>
             <Card>
-              <h4>Título de la Card</h4>
-              <p>Este es el contenido de una card básica sin efectos especiales.</p>
+              <h4>Card Title</h4>
+              <p>This is the content of a basic card without special effects.</p>
               <p style={{ color: 'var(--color-text-light)', fontSize: '0.875rem' }}>
-                Ideal para mostrar información estática.
+                Ideal for displaying static information.
               </p>
             </Card>
           </div>
 
           <div className={styles.demo}>
-            <h3>Variantes de Cards</h3>
+            <h3>Card Variants</h3>
             <div className={styles.row}>
               <Card variant="default">
                 <h4>Default</h4>
-                <p>Card estándar</p>
+                <p>Standard card</p>
               </Card>
               <Card variant="primary">
                 <h4>Primary</h4>
-                <p>Card destacada</p>
+                <p>Featured card</p>
               </Card>
               <Card variant="secondary">
                 <h4>Secondary</h4>
-                <p>Card secundaria</p>
+                <p>Secondary card</p>
               </Card>
               <Card variant="danger">
                 <h4>Danger</h4>
-                <p>Card de alerta</p>
+                <p>Alert card</p>
               </Card>
               <Card variant="success">
                 <h4>Success</h4>
-                <p>Card de éxito</p>
+                <p>Success card</p>
               </Card>
               <Card variant="warning">
                 <h4>Warning</h4>
-                <p>Card de advertencia</p>
+                <p>Warning card</p>
               </Card>
               <Card variant="outline">
                 <h4>Outline</h4>
-                <p>Card con borde</p>
+                <p>Card with border</p>
               </Card>
               <Card variant="dark">
                 <h4>Dark</h4>
-                <p>Card oscura</p>
+                <p>Dark card</p>
               </Card>
             </div>
           </div>
 
           <div className={styles.demo}>
-            <h3>Card con hover</h3>
+            <h3>Hoverable Card</h3>
             <div className={styles.row}>
               <Card hoverable variant="primary" onClick={() => alert('Card 1 clicked!')}>
-                <h4>🛍️ Producto 1</h4>
-                <p>Card clickeable con efecto hover</p>
+                <h4>🛍️ Product 1</h4>
+                <p>Clickable card with hover effect</p>
                 <p style={{ color: 'var(--color-primary)', fontWeight: '500' }}>
                   €29.99
                 </p>
               </Card>
               <Card hoverable variant="success" onClick={() => alert('Card 2 clicked!')}>
-                <h4>🎁 Producto 2</h4>
-                <p>Card clickeable con efecto hover</p>
+                <h4>🎁 Product 2</h4>
+                <p>Clickable card with hover effect</p>
                 <p style={{ color: 'var(--color-success)', fontWeight: '500' }}>
                   €49.99
                 </p>
@@ -332,11 +341,11 @@ export const DesignSystemPage: React.FC = () => {
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <h2>Spinner (Loading)</h2>
-            <p>Indicadores de carga para operaciones asíncronas</p>
+            <p>Loading indicators for asynchronous operations</p>
           </div>
 
           <div className={styles.demo}>
-            <h3>Tamaños</h3>
+            <h3>Sizes</h3>
             <div className={styles.row}>
               <div className={styles.spinnerDemo}>
                 <Spinner size="small" />
@@ -354,7 +363,7 @@ export const DesignSystemPage: React.FC = () => {
           </div>
 
           <div className={styles.demo}>
-            <h3>Colores personalizados</h3>
+            <h3>Custom colors</h3>
             <div className={styles.row}>
               <div className={styles.spinnerDemo}>
                 <Spinner size="medium" color="#007acc" />
@@ -376,7 +385,7 @@ export const DesignSystemPage: React.FC = () => {
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <h2>Badge</h2>
-            <p>Indicadores numéricos para contadores y notificaciones</p>
+            <p>Numeric indicators for counters and notifications</p>
           </div>
 
           <div className={styles.demo}>
@@ -421,27 +430,27 @@ export const DesignSystemPage: React.FC = () => {
           </div>
 
           <div className={styles.demo}>
-            <h3>Límite de contador (max)</h3>
+            <h3>Counter limit (max)</h3>
             <div className={styles.row}>
               <div className={styles.badgeDemo}>
                 <span className={styles.badgeIcon}>📦</span>
-                <span>Productos</span>
+                <span>Products</span>
                 <Badge count={150} max={99} variant="primary" />
               </div>
               <div className={styles.badgeDemo}>
                 <span className={styles.badgeIcon}>⭐</span>
-                <span>Favoritos</span>
+                <span>Favorites</span>
                 <Badge count={1000} max={999} variant="secondary" />
               </div>
             </div>
           </div>
 
           <div className={styles.demo}>
-            <h3>Badge oculto (count = 0)</h3>
+            <h3>Hidden badge (count = 0)</h3>
             <div className={styles.row}>
               <div className={styles.badgeDemo}>
                 <span className={styles.badgeIcon}>📬</span>
-                <span>Sin mensajes</span>
+                <span>No messages</span>
                 <Badge count={0} variant="primary" />
               </div>
             </div>
@@ -452,16 +461,16 @@ export const DesignSystemPage: React.FC = () => {
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <h2>Product Image</h2>
-            <p>Componente especializado para imágenes de productos con lazy loading</p>
+            <p>Specialized component for product images with lazy loading</p>
           </div>
 
           <div className={styles.demo}>
-            <h3>Tamaños</h3>
+            <h3>Sizes</h3>
             <div className={styles.row}>
               <div className={styles.imageDemo}>
                 <ProductImage
                   src="https://picsum.photos/200/200?random=1"
-                  alt="Producto pequeño"
+                  alt="Small product"
                   size="small"
                 />
                 <span>Small (80x80)</span>
@@ -469,7 +478,7 @@ export const DesignSystemPage: React.FC = () => {
               <div className={styles.imageDemo}>
                 <ProductImage
                   src="https://picsum.photos/200/200?random=2"
-                  alt="Producto mediano"
+                  alt="Medium product"
                   size="medium"
                 />
                 <span>Medium (200x200)</span>
@@ -477,7 +486,7 @@ export const DesignSystemPage: React.FC = () => {
               <div className={styles.imageDemo}>
                 <ProductImage
                   src="https://picsum.photos/400/400?random=3"
-                  alt="Producto grande"
+                  alt="Large product"
                   size="large"
                 />
                 <span>Large (400x400)</span>
@@ -486,15 +495,15 @@ export const DesignSystemPage: React.FC = () => {
           </div>
 
           <div className={styles.demo}>
-            <h3>Fallback (imagen no disponible)</h3>
+            <h3>Fallback (unavailable image)</h3>
             <div className={styles.row}>
               <div className={styles.imageDemo}>
                 <ProductImage
                   src="invalid-url-that-will-fail.jpg"
-                  alt="Imagen con error"
+                  alt="Image with error"
                   size="medium"
                 />
-                <span>Placeholder automático</span>
+                <span>Automatic placeholder</span>
               </div>
             </div>
           </div>
@@ -504,7 +513,7 @@ export const DesignSystemPage: React.FC = () => {
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <h2>Color Palette</h2>
-            <p>Variables CSS del sistema de diseño</p>
+            <p>CSS variables of the design system</p>
           </div>
 
           <div className={styles.demo}>
@@ -552,6 +561,176 @@ export const DesignSystemPage: React.FC = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* RADIO GROUP */}
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <h2>Radio Group</h2>
+            <p>Radio buttons for single selection from multiple options</p>
+          </div>
+
+          <div className={styles.demo}>
+            <h3>Horizontal layout</h3>
+            <RadioGroup
+              name="color-horizontal"
+              label="Select a color"
+              options={[
+                { value: 'red', label: 'Red' },
+                { value: 'blue', label: 'Blue' },
+                { value: 'green', label: 'Green' },
+              ]}
+              value={radioValue}
+              onChange={(value) => setRadioValue(String(value))}
+              layout="horizontal"
+            />
+          </div>
+
+          <div className={styles.demo}>
+            <h3>Vertical layout</h3>
+            <RadioGroup
+              name="size-vertical"
+              label="Select a size"
+              options={[
+                { value: 's', label: 'Small' },
+                { value: 'm', label: 'Medium' },
+                { value: 'l', label: 'Large' },
+                { value: 'xl', label: 'Extra Large' },
+              ]}
+              value={radioSizeValue}
+              onChange={(value) => setRadioSizeValue(String(value))}
+              layout="vertical"
+            />
+          </div>
+
+          <div className={styles.demo}>
+            <h3>Disabled state</h3>
+            <RadioGroup
+              name="color-disabled"
+              label="Disabled radio group"
+              options={[
+                { value: 'option1', label: 'Option 1' },
+                { value: 'option2', label: 'Option 2' },
+              ]}
+              value="option1"
+              onChange={() => {}}
+              disabled
+            />
+          </div>
+        </section>
+
+        {/* QUANTITY SELECTOR */}
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <h2>Quantity Selector</h2>
+            <p>Input for selecting numeric quantities with increment/decrement buttons</p>
+          </div>
+
+          <div className={styles.demo}>
+            <h3>Basic quantity selector</h3>
+            <QuantitySelector
+              value={quantity1}
+              min={1}
+              max={10}
+              onChange={setQuantity1}
+            />
+          </div>
+
+          <div className={styles.demo}>
+            <h3>With label</h3>
+            <QuantitySelector
+              label="Quantity"
+              value={quantity2}
+              min={1}
+              max={99}
+              onChange={setQuantity2}
+            />
+          </div>
+
+          <div className={styles.demo}>
+            <h3>Disabled state</h3>
+            <QuantitySelector
+              label="Quantity (disabled)"
+              value={5}
+              min={1}
+              max={10}
+              onChange={() => {}}
+              disabled
+            />
+          </div>
+
+          <div className={styles.demo}>
+            <h3>Different limits</h3>
+            <div className={styles.column}>
+              <QuantitySelector
+                label="Small range (1-5)"
+                value={quantity3}
+                min={1}
+                max={5}
+                onChange={setQuantity3}
+              />
+              <QuantitySelector
+                label="Large range (0-100)"
+                value={quantity4}
+                min={0}
+                max={100}
+                onChange={setQuantity4}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* COLLAPSIBLE */}
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <h2>Collapsible</h2>
+            <p>Expandable/collapsible content sections</p>
+          </div>
+
+          <div className={styles.demo}>
+            <h3>Basic collapsible</h3>
+            <Collapsible title="Product Details">
+              <p>This is the content inside the collapsible section.</p>
+              <p>You can put any content here, including other components.</p>
+            </Collapsible>
+          </div>
+
+          <div className={styles.demo}>
+            <h3>Multiple collapsibles</h3>
+            <div className={styles.column}>
+              <Collapsible title="📦 Shipping Information">
+                <p><strong>Standard Shipping:</strong> 5-7 business days</p>
+                <p><strong>Express Shipping:</strong> 2-3 business days</p>
+                <p><strong>Free shipping</strong> on orders over €50</p>
+              </Collapsible>
+              
+              <Collapsible title="↩️ Return Policy">
+                <p>Items can be returned within 30 days of purchase.</p>
+                <p>Products must be in original condition with tags attached.</p>
+                <Button variant="outline" onClick={() => alert('View full policy')}>
+                  View Full Policy
+                </Button>
+              </Collapsible>
+
+              <Collapsible title="💳 Payment Methods">
+                <p>We accept the following payment methods:</p>
+                <ul>
+                  <li>Credit/Debit Cards (Visa, Mastercard, Amex)</li>
+                  <li>PayPal</li>
+                  <li>Bank Transfer</li>
+                  <li>Apple Pay / Google Pay</li>
+                </ul>
+              </Collapsible>
+            </div>
+          </div>
+
+          <div className={styles.demo}>
+            <h3>Initially open</h3>
+            <Collapsible title="FAQ: How do I track my order?" defaultOpen>
+              <p>Once your order ships, you&apos;ll receive an email with a tracking number.</p>
+              <p>You can also check your order status in your account dashboard.</p>
+            </Collapsible>
           </div>
         </section>
       </div>

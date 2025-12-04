@@ -15,7 +15,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   if (products.length === 0) {
     return (
       <div className={styles.empty}>
-        <p>No se encontraron productos</p>
+        <p>No products found</p>
       </div>
     );
   }

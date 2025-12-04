@@ -62,4 +62,45 @@ I used React Contexts for two distinct purposes:
     npm run build
     ```
 
+---
+
+## Reflections & Challenges
+
+This test was incredibly interesting and engaging. I genuinely enjoyed it and learned a lot during the process. I had to research several topics to implement the test following the best practices I know.
+
+### Key Learnings
+
+Throughout this challenge, I deepened my understanding of:
+* **React Contexts** for performance optimization and proper state management
+* **Hexagonal Architecture** applied to frontend, separating modules and concepts into clear layers
+* **Cross-cutting layers** for shared utilities and infrastructure
+
+### Main Challenges Faced
+
+1. **No API Contract**: Working without a formal API specification meant I had to rely entirely on runtime responses and adapt dynamically.
+
+2. **Handling Missing Data**: Identifying fields that might be absent from API responses and implementing graceful fallbacks (e.g., "Unavailable" states).
+
+3. **No Pagination Limits**: The API doesn't support limiting results per page. To optimize rendering, I implemented an **Infinite Scroll** mechanism that loads items progressively.
+
+4. **Timeout & Caching Strategy**: I considered potential network timeouts and added request timeout configuration and caching capabilities to the API client, defining a complete flow for this behavior.
+
+5. **Cart & Products API Limitations**: Persisting the cart is interesting, but the API's behavior is unclear—it seems to only receive quantity without proper cart management. From an application perspective, the APIs leave much to be desired.
+
+6. **Image Sizing Issues**: The image sizes from the API were challenging. I tried implementing CSS effects to display them larger, but it proved to be a significant challenge.
+
+7. **Dynamic Field Handling**: I handled existing fields for the product detail view, but I also considered the possibility of different fields coming from the API. I didn't fully model every possible response or entity variation, but it's something to consider for future scalability.
+
+8. **Core Services & SOLID**: The transversal CORE services demonstrate SOLID patterns and principles I apply in both backend and frontend development, showcasing interface-based design and dependency inversion.
+
+9. **App Integration Layer**: I created an `app` layer to integrate different modules and manage the dependency injection container, serving as the entry point for the entire application.
+
+### My Philosophy
+
+My approach wasn't just to deliver something that works—it was to deliver something **I'm proud of**. For someone who doesn't specialize purely in frontend development, I feel quite confident about this solution. It was a research-intensive process that I genuinely enjoyed.
+
+---
+
 I hope this structure demonstrates not just my coding skills, but my ability to design systems that are built to last. I look forward to your feedback!
+
+**Thank you for the opportunity!**

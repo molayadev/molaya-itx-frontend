@@ -35,10 +35,10 @@ export const Home: React.FC = () => {
 
         <div className={styles.actions}>
           <Link to="/design" className={styles.primaryLink}>
-            Ver Design System
+            View Design System
           </Link>
           <Link to="/products" className={styles.secondaryLink}>
-            Ver Productos
+            View Products
           </Link>
         </div>
       </div>

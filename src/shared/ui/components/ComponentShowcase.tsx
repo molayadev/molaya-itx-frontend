@@ -54,11 +54,11 @@ export const ComponentShowcase: React.FC = () => {
         <Input
           id="error-input"
           name="error"
-          label="Con Error"
-          placeholder="Input con error"
+          label="With Error"
+          placeholder="Input with error"
           value=""
           onChange={() => {}}
-          error="Este campo es obligatorio"
+          error="This field is required"
           fullWidth
         />
       </section>
@@ -68,7 +68,7 @@ export const ComponentShowcase: React.FC = () => {
         <Select
           id="test-select"
           name="test"
-          label="Selecciona una opción"
+          label="Select an option"
           options={selectOptions}
           value={selectValue}
           onChange={(value) => setSelectValue(String(value))}
@@ -123,17 +123,17 @@ export const ComponentShowcase: React.FC = () => {
         <div className={styles.row}>
           <ProductImage
             src="https://picsum.photos/200"
-            alt="Producto de ejemplo"
+            alt="Sample product"
             size="small"
           />
           <ProductImage
             src="https://picsum.photos/400"
-            alt="Producto de ejemplo"
+            alt="Sample product"
             size="medium"
           />
           <ProductImage
             src="invalid-url"
-            alt="Imagen con error (fallback)"
+            alt="Image with error (fallback)"
             size="medium"
           />
         </div>

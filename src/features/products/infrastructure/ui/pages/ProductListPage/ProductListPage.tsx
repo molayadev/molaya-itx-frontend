@@ -38,7 +38,7 @@ export const ProductListPage: React.FC = () => {
   if (error) {
     return (
       <div className={styles.error}>
-        <h2>Error al cargar productos</h2>
+        <h2>Error loading products</h2>
         <p>{error}</p>
       </div>
     );
@@ -49,14 +49,14 @@ export const ProductListPage: React.FC = () => {
       <div className={styles.content}>
         {totalItems > 0 && (
           <p className={styles.resultsInfo}>
-            Mostrando {displayedCount} de {totalItems} productos
+            Showing {displayedCount} of {totalItems} products
           </p>
         )}
 
         {isLoading ? (
           <div className={styles.loading}>
             <Spinner size="large" />
-            <p>Cargando productos...</p>
+            <p>Loading products...</p>
           </div>
         ) : (
           <>
@@ -68,7 +68,7 @@ export const ProductListPage: React.FC = () => {
               onLoadMore={loadMore}
               hasMore={hasMore}
               isLoading={false}
-              loadingMessage="Cargando más productos..."
+              loadingMessage="Loading more products..."
             />
           </>
         )}
