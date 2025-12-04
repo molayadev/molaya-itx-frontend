@@ -55,7 +55,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new HtmlWebpackPlugin({ template: './public/index.html' }),
-      new Dotenv() // Inyecta variables del archivo .env a process.env
+      new Dotenv() // Inject variables from file .env to process.env
     ],
     devServer: {
       historyApiFallback: true,

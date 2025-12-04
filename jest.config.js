@@ -6,7 +6,8 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '^@/(.*)$': '<rootDir>/src/$1',
+    '\\.(jpg|jpeg|png|gif|svg|webp)$': '<rootDir>/__mocks__/fileMock.js',
+    '^@app/(.*)$': '<rootDir>/src/app/$1',
     '^@core/(.*)$': '<rootDir>/src/core/$1',
     '^@features/(.*)$': '<rootDir>/src/features/$1',
     '^@shared/(.*)$': '<rootDir>/src/shared/$1',
