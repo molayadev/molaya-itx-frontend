@@ -1,1 +1,2 @@
-export * from './HttpCartRepository';
+export * from './CartManagerRepository';
+export { CartManagerRepository } from './CartManagerRepository';

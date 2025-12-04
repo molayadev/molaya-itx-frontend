@@ -2,8 +2,18 @@ import { AddToCart } from './AddToCart';
 import { ICartRepository } from '../ports/ICartRepository';
 import { createCartItem } from '@features/cart/domain/entities/CartItem.entity';
 
-const mockRepository: ICartRepository = {
-  addItem: jest.fn().mockResolvedValue(3),
+const createMockCartItem = (productId: string = '001', colorCode: number = 1, storageCode: number = 2) => {
+  return createCartItem({
+    productId,
+    name: 'Test Product',
+    image: 'https://example.com/image.jpg',
+    colorCode,
+    colorName: 'Blue',
+    storageCode,
+    storageName: '256GB',
+    quantity: 1,
+    price: 999.99,
+  });
 };
 
 describe('AddToCart', () => {
@@ -12,12 +22,16 @@ describe('AddToCart', () => {
   });
 
   it('should add item to cart and return count', async () => {
+    const mockRepository: ICartRepository = {
+      addItem: jest.fn().mockResolvedValue(3),
+      getCart: jest.fn(),
+      updateItemQuantity: jest.fn(),
+      removeItem: jest.fn(),
+      clearCart: jest.fn(),
+    };
+
     const useCase = new AddToCart(mockRepository);
-    const item = createCartItem({
-      productId: '001',
-      colorCode: 1,
-      storageCode: 2,
-    });
+    const item = createMockCartItem('001', 1, 2);
 
     const count = await useCase.execute(item);
 
@@ -27,42 +41,42 @@ describe('AddToCart', () => {
   });
 
   it('should propagate repository errors', async () => {
-    const errorMock = jest.fn().mockRejectedValue(new Error('Network error'));
-    const repoWithError: ICartRepository = {
-      addItem: errorMock,
+    const mockRepository: ICartRepository = {
+      addItem: jest.fn().mockRejectedValue(new Error('Storage error')),
+      getCart: jest.fn(),
+      updateItemQuantity: jest.fn(),
+      removeItem: jest.fn(),
+      clearCart: jest.fn(),
     };
 
-    const useCase = new AddToCart(repoWithError);
-    const item = createCartItem({
-      productId: '001',
-      colorCode: 1,
-      storageCode: 2,
-    });
+    const useCase = new AddToCart(mockRepository);
+    const item = createMockCartItem('001', 1, 2);
 
-    await expect(useCase.execute(item)).rejects.toThrow('Network error');
-    expect(errorMock).toHaveBeenCalledWith(item);
+    await expect(useCase.execute(item)).rejects.toThrow('Storage error');
+    expect(mockRepository.addItem).toHaveBeenCalledWith(item);
   });
 
   it('should handle multiple items', async () => {
     const counts = [1, 2, 3];
     let callCount = 0;
-    const dynamicMock = jest.fn().mockImplementation(() => 
-      Promise.resolve(counts[callCount++])
-    );
-    const repo: ICartRepository = {
-      addItem: dynamicMock,
+
+    const mockRepository: ICartRepository = {
+      addItem: jest.fn().mockImplementation(() => Promise.resolve(counts[callCount++])),
+      getCart: jest.fn(),
+      updateItemQuantity: jest.fn(),
+      removeItem: jest.fn(),
+      clearCart: jest.fn(),
     };
 
-    const useCase = new AddToCart(repo);
+    const useCase = new AddToCart(mockRepository);
 
-    const item1 = createCartItem({ productId: '001', colorCode: 1, storageCode: 1 });
-    const item2 = createCartItem({ productId: '002', colorCode: 2, storageCode: 2 });
-    const item3 = createCartItem({ productId: '003', colorCode: 3, storageCode: 3 });
+    const item1 = createMockCartItem('001', 1, 1);
+    const item2 = createMockCartItem('002', 2, 2);
+    const item3 = createMockCartItem('003', 3, 3);
 
     expect(await useCase.execute(item1)).toBe(1);
     expect(await useCase.execute(item2)).toBe(2);
     expect(await useCase.execute(item3)).toBe(3);
-
-    expect(dynamicMock).toHaveBeenCalledTimes(3);
+    expect(mockRepository.addItem).toHaveBeenCalledTimes(3);
   });
 });

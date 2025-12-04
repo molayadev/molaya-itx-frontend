@@ -1,7 +1,7 @@
 export interface LogEntry {
   message: string;
   context?: Record<string, unknown>;
-  error?: Error;
+  error?: Error | unknown;
 }
 
 export interface ILogger {
