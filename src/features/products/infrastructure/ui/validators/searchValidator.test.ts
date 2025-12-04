@@ -74,7 +74,7 @@ describe('validateSearchQuery', () => {
       const result = validateSearchQuery('<script>alert("xss")</script>');
       expect(result.isValid).toBe(false);
       expect(result.error).toBe('Caracteres no permitidos en la búsqueda');
-      expect(result.sanitizedQuery).toBe(''); // DOMPurify removes script tags completely
+      expect(result.sanitizedQuery).toBe('');
     });
 
     it('should reject uppercase script tags', () => {
@@ -117,7 +117,7 @@ describe('validateSearchQuery', () => {
       const result = validateSearchQuery('<div>test</div>');
       expect(result.isValid).toBe(false);
       expect(result.error).toBe('Caracteres no permitidos en la búsqueda');
-      expect(result.sanitizedQuery).toBe('test'); // Content preserved
+      expect(result.sanitizedQuery).toBe('test');
     });
   });
 
@@ -130,12 +130,12 @@ describe('validateSearchQuery', () => {
     it('should reject queries with HTML in the middle', () => {
       const result = validateSearchQuery('test <script>alert(1)</script> test');
       expect(result.isValid).toBe(false);
-      expect(result.sanitizedQuery).toBe('test  test'); // Script removed, spaces preserved
+      expect(result.sanitizedQuery).toBe('test  test');
     });
 
     it('should handle encoded HTML entities', () => {
       const result = validateSearchQuery('&lt;script&gt;');
-      expect(result.isValid).toBe(true); // Already encoded, safe
+      expect(result.isValid).toBe(true);
     });
   });
 });

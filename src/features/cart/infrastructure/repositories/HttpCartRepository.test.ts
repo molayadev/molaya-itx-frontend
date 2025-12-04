@@ -53,7 +53,6 @@ describe('HttpCartRepository', () => {
     const callArgs = mockApiClient.post.mock.calls[0][0];
     const requestBody = callArgs.body as Record<string, unknown>;
 
-    // Verificar que solo tenga estos 3 campos
     expect(Object.keys(requestBody)).toEqual(['id', 'colorCode', 'storageCode']);
     expect(requestBody.id).toBe('XYZ789');
     expect(requestBody.colorCode).toBe(5);
@@ -81,15 +80,12 @@ describe('HttpCartRepository', () => {
       storageCode: 2,
     });
 
-    // Primera llamada retorna count: 1
     mockApiClient.post.mockResolvedValueOnce({ count: 1 });
     expect(await repository.addItem(cartItem)).toBe(1);
 
-    // Segunda llamada retorna count: 10
     mockApiClient.post.mockResolvedValueOnce({ count: 10 });
     expect(await repository.addItem(cartItem)).toBe(10);
 
-    // Tercera llamada retorna count: 99
     mockApiClient.post.mockResolvedValueOnce({ count: 99 });
     expect(await repository.addItem(cartItem)).toBe(99);
   });
