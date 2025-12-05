@@ -64,14 +64,14 @@ export const CartModal: React.FC<CartModalProps> = ({
     <div className={styles.overlay} data-testid="cart-modal-overlay">
       <div className={styles.modal} ref={modalRef} data-testid="cart-modal">
         <div className={styles.header}>
-          <h2 className={styles.title}>
-            Carrito de Compras
+            <h2 className={styles.title}>
+            Shopping Cart
             {!isEmpty && <span className={styles.count}>({totalItems})</span>}
-          </h2>
+            </h2>
           <button 
             onClick={onClose}
             className={styles.closeButton}
-            aria-label="Cerrar carrito"
+            aria-label="Close cart"
             data-testid="close-modal-button"
           >
             ✕
@@ -82,8 +82,8 @@ export const CartModal: React.FC<CartModalProps> = ({
           {isEmpty ? (
             <div className={styles.emptyState}>
               <p className={styles.emptyIcon}>🛒</p>
-              <p className={styles.emptyText}>Tu carrito está vacío</p>
-              <p className={styles.emptySubtext}>Agrega productos para comenzar</p>
+              <p className={styles.emptyText}>Your cart is empty.</p>
+              <p className={styles.emptySubtext}>Add products to get started</p>
             </div>
           ) : (
             <>
@@ -119,14 +119,14 @@ export const CartModal: React.FC<CartModalProps> = ({
                 </div>
 
                 <div className={styles.actions}>
-                  <Button
+                    <Button
                     variant="secondary"
                     onClick={onClearCart}
                     fullWidth
                     data-testid="clear-cart-button"
-                  >
-                    Vaciar carrito
-                  </Button>
+                    >
+                    Clear cart
+                    </Button>
                   <Button
                     variant="primary"
                     onClick={onClose}

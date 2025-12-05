@@ -20,7 +20,7 @@ export const CartBadge: React.FC<CartBadgeProps> = ({
     <button 
       className={styles.cartButton} 
       onClick={onClick}
-      aria-label={`Carrito de compras con ${count} productos`}
+      aria-label={`Shopping Cart has ${count} products`}
       data-testid="cart-badge"
     >
       <span className={styles.cartIcon}>🛒</span>

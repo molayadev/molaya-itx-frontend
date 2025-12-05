@@ -104,7 +104,7 @@ export const ComponentShowcase: React.FC = () => {
         <h2>Badge</h2>
         <div className={styles.row}>
           <div className={styles.badgeDemo}>
-            🛒 Carrito
+            🛒 Cart
             <Badge count={5} variant="primary" />
           </div>
           <div className={styles.badgeDemo}>
