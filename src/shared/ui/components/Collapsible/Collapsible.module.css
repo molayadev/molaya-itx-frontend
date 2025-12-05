@@ -45,7 +45,7 @@
 }
 
 .contentOpen {
-  max-height: 2000px;
+  max-height: 450px;
   transition: max-height 0.5s ease-in;
 }
 
