@@ -16,7 +16,9 @@
     "baseUrl": "./src",
     "paths": {
       "@core/*": ["core/*"],
-      "@features/*": ["features/*"]
+      "@features/*": ["features/*"],
+      "@shared/*": ["shared/*"],
+      "@app/*": ["app/*"]
     }
   },
   "include": ["src"]

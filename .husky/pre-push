@@ -1,0 +1,17 @@
+echo "🧪 Running tests..."
+npm run test
+
+if [ $? -ne 0 ]; then
+  echo "❌ Tests failed. Push aborted."
+  exit 1
+fi
+
+echo "🏗️  Building project..."
+npm run build
+
+if [ $? -ne 0 ]; then
+  echo "❌ Build failed. Push aborted."
+  exit 1
+fi
+
+echo "✅ All checks passed. Proceeding with push..."

@@ -17,7 +17,9 @@ module.exports = (env, argv) => {
       extensions: ['.ts', '.tsx', '.js', '.css'],
       alias: {
         '@core': path.resolve(__dirname, 'src/core/'),
-        '@features': path.resolve(__dirname, 'src/features/')
+        '@features': path.resolve(__dirname, 'src/features/'),
+        '@shared': path.resolve(__dirname, 'src/shared/'),
+        '@app': path.resolve(__dirname, 'src/app/')
       }
     },
     module: {
@@ -28,14 +30,14 @@ module.exports = (env, argv) => {
           exclude: /node_modules/,
         },
         {
-          test: /\.css$/,
+          test: /\.module\.css$/,
           use: [
             'style-loader',
             {
               loader: 'css-loader',
               options: {
+                esModule: false,
                 modules: {
-                  auto: true, // Habilita CSS Modules solo para archivos .module.css
                   localIdentName: isProduction
                     ? '[hash:base64]'
                     : '[name]__[local]--[hash:base64:5]',
@@ -44,11 +46,16 @@ module.exports = (env, argv) => {
             },
           ],
         },
+        {
+          test: /\.css$/,
+          exclude: /\.module\.css$/,
+          use: ['style-loader', 'css-loader'],
+        },
       ],
     },
     plugins: [
       new HtmlWebpackPlugin({ template: './public/index.html' }),
-      new Dotenv() // Inyecta variables del archivo .env a process.env
+      new Dotenv() // Inject variables from file .env to process.env
     ],
     devServer: {
       historyApiFallback: true,
