@@ -22,7 +22,7 @@ interface CartContextValue {
 const CartContext = createContext<CartContextValue | null>(null);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { cartRepository } = useDependency<ServiceContainer>();
+  const { cartRepository, logger } = useDependency<ServiceContainer>();
   const [items, setItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -45,10 +45,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [refreshCart]);
 
   const addToCart = async (item: CartItem): Promise<void> => {
+    logger.info({ message: '[CartContext] addToCart called', context: { item } });
     setIsLoading(true);
     try {
+      logger.info({ message: '[CartContext] Executing AddToCart use case' });
       await useCases.addToCart.execute(item);
+      logger.info({ message: '[CartContext] AddToCart use case completed, refreshing cart' });
       refreshCart();
+      logger.info({ message: '[CartContext] Cart refreshed', context: { itemsCount: items.length } });
+    } catch (error) {
+      logger.error({ message: '[CartContext] Error adding to cart', error });
+      throw error;
     } finally {
       setIsLoading(false);
     }

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 
 interface UseProductOptionsParams {
   colors: Array<{ code: number; name: string }>;
@@ -6,24 +6,35 @@ interface UseProductOptionsParams {
 }
 
 export const useProductOptions = ({ colors, storages }: UseProductOptionsParams) => {
-  const defaultColorCode = useMemo(() => {
-    return colors.length === 1 ? colors[0].code : null;
-  }, [colors]);
-
-  const defaultStorageCode = useMemo(() => {
-    return storages.length === 1 ? storages[0].code : null;
-  }, [storages]);
+  const defaultColorCode = colors.length > 0 ? colors[0].code : null;
+  const defaultStorageCode = storages.length > 0 ? storages[0].code : null;
 
   const [selectedColorCode, setSelectedColorCode] = useState<number | null>(defaultColorCode);
   const [selectedStorageCode, setSelectedStorageCode] = useState<number | null>(defaultStorageCode);
+  const getSelectedColorName = (code: number | null) => {
+    const color = colors.find((c) => c.code === code);
+    return color ? color.name : '';
+  }
+  const getSelectedStorageName = (code: number | null) => {
+    const storage = storages.find((s) => s.code === code);
+    return storage ? storage.name : '';
+  }
+  
+  useEffect(() => {
+    setSelectedColorCode(defaultColorCode);
+  }, [defaultColorCode]);
 
-  const isSelectionComplete = selectedColorCode !== null && selectedStorageCode !== null;
+  useEffect(() => {
+    setSelectedStorageCode(defaultStorageCode);
+  }, [defaultStorageCode]);
+
 
   return {
     selectedColorCode,
     selectedStorageCode,
     setSelectedColorCode,
     setSelectedStorageCode,
-    isSelectionComplete,
+    getSelectedColorName,
+    getSelectedStorageName,
   };
 };

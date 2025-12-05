@@ -26,11 +26,11 @@ export const CartBadge: React.FC<CartBadgeProps> = ({
       <span className={styles.cartIcon}>🛒</span>
       {hasItems && (
         <Badge 
-          text={displayCount} 
           variant="primary"
-          className={styles.badge}
           data-testid="cart-badge-count"
-        />
+        >
+          {displayCount}
+        </Badge>
       )}
     </button>
   );

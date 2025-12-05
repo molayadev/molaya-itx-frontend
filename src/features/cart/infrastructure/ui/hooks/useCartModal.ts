@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 export interface UseCartModalReturn {
   isOpen: boolean;
@@ -10,17 +10,17 @@ export interface UseCartModalReturn {
 export const useCartModal = (): UseCartModalReturn => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = useCallback(() => {
+  const openModal = () => {
     setIsOpen(true);
-  }, []);
+  };
 
-  const closeModal = useCallback(() => {
+  const closeModal = () => {
     setIsOpen(false);
-  }, []);
+  };
 
-  const toggleModal = useCallback(() => {
+  const toggleModal = () => {
     setIsOpen((prev) => !prev);
-  }, []);
+  };
 
   return {
     isOpen,

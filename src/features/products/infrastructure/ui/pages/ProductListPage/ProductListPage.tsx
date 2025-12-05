@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useProducts } from '../../hooks/useProducts';
 import { useProductSearch } from '../../hooks/useProductSearch';
@@ -31,9 +31,9 @@ export const ProductListPage: React.FC = () => {
     reset();
   }, [filteredProducts, reset]);
 
-  const handleProductClick = useCallback((productId: string) => {
+  const handleProductClick = (productId: string) => {
     navigate(`/product/${productId}`);
-  }, [navigate]);
+  };
 
   if (error) {
     return (

@@ -11,15 +11,15 @@ describe('useProductOptions', () => {
     { code: 1, name: '32 GB' },
   ];
 
-  it('should initialize with no selection when multiple options', () => {
+  it('should auto-select first option when multiple colors available', () => {
     const { result } = renderHook(() =>
       useProductOptions({ colors: mockColors, storages: mockStorages })
     );
 
-    expect(result.current.selectedColorCode).toBeNull();
+    expect(result.current.selectedColorCode).toBe(1);
   });
 
-  it('should auto-select when only one option available', () => {
+  it('should auto-select first option when storage available', () => {
     const { result } = renderHook(() =>
       useProductOptions({ colors: mockColors, storages: mockStorages })
     );
@@ -27,36 +27,54 @@ describe('useProductOptions', () => {
     expect(result.current.selectedStorageCode).toBe(1);
   });
 
-  it('should mark selection as incomplete when not all selected', () => {
+  it('should allow manual selection change', () => {
     const { result } = renderHook(() =>
       useProductOptions({ colors: mockColors, storages: mockStorages })
     );
 
-    expect(result.current.isSelectionComplete).toBe(false);
+    expect(result.current.selectedColorCode).toBe(1);
+
+    act(() => {
+      result.current.setSelectedColorCode(2);
+    });
+
+    expect(result.current.selectedColorCode).toBe(2);
   });
 
-  it('should mark selection as complete when both selected', () => {
-    const singleColor = [{ code: 1, name: 'Black' }];
-    const singleStorage = [{ code: 1, name: '32 GB' }];
-
+  it('should handle products with only colors (no storage)', () => {
     const { result } = renderHook(() =>
-      useProductOptions({ colors: singleColor, storages: singleStorage })
+      useProductOptions({ colors: mockColors, storages: [] })
     );
 
-    expect(result.current.isSelectionComplete).toBe(true);
+    expect(result.current.selectedColorCode).toBe(1);
+    expect(result.current.selectedStorageCode).toBeNull();
   });
 
-  it('should allow manual selection', () => {
+  it('should handle empty options gracefully', () => {
     const { result } = renderHook(() =>
-      useProductOptions({ colors: mockColors, storages: mockStorages })
+      useProductOptions({ colors: [], storages: [] })
     );
 
     expect(result.current.selectedColorCode).toBeNull();
+    expect(result.current.selectedStorageCode).toBeNull();
+  });
 
-    act(() => {
-      result.current.setSelectedColorCode(1);
-    });
+  it('should update selection when options change', () => {
+    const { result, rerender } = renderHook(
+      ({ colors, storages }) => useProductOptions({ colors, storages }),
+      {
+        initialProps: {
+          colors: mockColors,
+          storages: mockStorages,
+        },
+      }
+    );
 
     expect(result.current.selectedColorCode).toBe(1);
+
+    const newColors = [{ code: 3, name: 'Red' }];
+    rerender({ colors: newColors, storages: mockStorages });
+
+    expect(result.current.selectedColorCode).toBe(3);
   });
 });

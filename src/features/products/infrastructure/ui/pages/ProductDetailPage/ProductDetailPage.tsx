@@ -3,6 +3,10 @@ import { useParams, Link } from 'react-router-dom';
 import { useProductDetail } from '../../hooks/useProductDetail';
 import { useProductOptions } from '../../hooks/useProductOptions';
 import { useQuantity } from '../../hooks/useQuantity';
+import { useCart } from '@features/cart/infrastructure/ui/CartContext';
+import { createCartItem } from '@features/cart/domain/entities/CartItem.entity';
+import { useDependency } from '@core/di/DIContext';
+import { ServiceContainer } from '@app/di/ServiceContainer';
 import { ProductImage, Spinner, Button, QuantitySelector } from '@shared/ui/components';
 import { ProductSpecs } from '../../components/ProductSpecs';
 import { ProductOptions } from '../../components/ProductOptions';
@@ -11,37 +15,68 @@ import styles from './ProductDetailPage.module.css';
 export const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { product, isLoading, error } = useProductDetail(id);
+  const { addToCart } = useCart();
+  const { logger } = useDependency<ServiceContainer>();
   
   const {
     selectedColorCode,
     selectedStorageCode,
     setSelectedColorCode,
     setSelectedStorageCode,
-    isSelectionComplete,
+    getSelectedColorName,
+    getSelectedStorageName,
   } = useProductOptions({
-    colors: product?.options.colors || [],
-    storages: product?.options.storages || [],
+    colors: product?.options?.colors || [],
+    storages: product?.options?.storages || [],
   });
 
   const { quantity, setValue: setQuantity } = useQuantity({ initialValue: 1 });
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [addToCartSuccess, setAddToCartSuccess] = useState(false);
 
   const handleAddToCart = async () => {
-    if (!product || !isSelectionComplete) return;
+    logger.info({ message: '[ProductDetailPage] handleAddToCart called', context: { product: product?.id } });
+    
+    if (!product) {
+      logger.info({ message: '[ProductDetailPage] Validation failed, returning early' });
+      return;
+    }
 
     setIsAddingToCart(true);
+    setAddToCartSuccess(false);
 
-    console.log('Add to cart:', {
-      productId: product.id,
-      colorCode: selectedColorCode,
-      storageCode: selectedStorageCode,
-      quantity,
-    });
+    try {
 
-    setTimeout(() => {
+
+      logger.info({ message: '[ProductDetailPage] Selected options', context: {
+        color: selectedColorCode,
+        storage: selectedStorageCode,
+      }});
+
+      const cartItem = createCartItem({
+        productId: product.id,
+        name: `${product.brand} ${product.model}`,
+        image: product.imgUrl,
+        colorCode: selectedColorCode ?? 0,
+        colorName: getSelectedColorName(selectedColorCode),
+        storageCode: selectedStorageCode ?? 0,
+        storageName: getSelectedStorageName(selectedStorageCode),
+        quantity: quantity,
+        price: product.price,
+      });
+
+      logger.info({ message: '[ProductDetailPage] Cart item created', context: { cartItem } });
+      logger.info({ message: '[ProductDetailPage] Calling addToCart...' });
+      await addToCart(cartItem);
+      logger.info({ message: '[ProductDetailPage] addToCart completed successfully' });
+
+      setAddToCartSuccess(true);
+      setTimeout(() => setAddToCartSuccess(false), 3000);
+    } catch (error) {
+      logger.error({ message: '[ProductDetailPage] Error adding to cart', error });
+    } finally {
       setIsAddingToCart(false);
-      alert(`Added ${quantity} item(s) to cart!`);
-    }, 1000);
+    }
   };
 
   if (error) {
@@ -123,12 +158,18 @@ export const ProductDetailPage: React.FC = () => {
 
                 <Button
                   onClick={handleAddToCart}
-                  disabled={!isSelectionComplete || isAddingToCart}
+                  disabled={isAddingToCart}
                   variant="primary"
                   fullWidth
                 >
-                  {isAddingToCart ? 'Adding to cart...' : 'Add to cart'}
+                  {isAddingToCart ? 'Adding to cart...' : addToCartSuccess ? '✓ Added to cart!' : 'Add to cart'}
                 </Button>
+
+                {addToCartSuccess && (
+                  <p className={styles.successMessage}>
+                    Product added to cart successfully!
+                  </p>
+                )}
               </div>
             </>
           )}

@@ -29,7 +29,7 @@ export const createCartItem = (data: CartItemBase): CartItem => {
     throw new Error('Color code must be non-negative');
   }
 
-  if (!data.colorName || data.colorName.trim() === '') {
+  if (!data.colorName) {
     throw new Error('Color name is required');
   }
 
@@ -37,7 +37,7 @@ export const createCartItem = (data: CartItemBase): CartItem => {
     throw new Error('Storage code must be non-negative');
   }
 
-  if (!data.storageName || data.storageName.trim() === '') {
+  if (!data.storageName) {
     throw new Error('Storage name is required');
   }
 
