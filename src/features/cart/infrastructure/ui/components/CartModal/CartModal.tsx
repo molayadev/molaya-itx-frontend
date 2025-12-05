@@ -133,7 +133,7 @@ export const CartModal: React.FC<CartModalProps> = ({
                     fullWidth
                     data-testid="checkout-button"
                   >
-                    Ir a pagar
+                    Checkout
                   </Button>
                 </div>
               </div>
