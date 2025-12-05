@@ -13,7 +13,7 @@ export interface SearchBarProps {
 export const SearchBar: React.FC<SearchBarProps> = ({
   value,
   onChange,
-  placeholder = 'Buscar por marca o modelo...',
+  placeholder = 'Search by brand and model...',
   isSearching = false,
 }) => {
   const [error, setError] = useState<string | undefined>();

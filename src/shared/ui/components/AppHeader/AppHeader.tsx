@@ -22,7 +22,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   onSearchChange,
   isSearching = false,
   showSearch = true,
-  searchPlaceholder = 'Buscar productos...',
+  searchPlaceholder = 'Search products...',
   showCart = true,
   appName = '📱 ITX Store',
 }) => {
