@@ -57,7 +57,7 @@
 /* Desktop: fixed height with scroll */
 @media (min-width: 769px) {
   .contentOpen {
-    max-height: 400px;
+    max-height: 600px;
     overflow-y: auto;
   }
 
