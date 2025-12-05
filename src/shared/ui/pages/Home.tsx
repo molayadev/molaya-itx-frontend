@@ -9,7 +9,7 @@ export const Home: React.FC = () => {
       <Header
         className={styles.hero}
         title="Molaya ITX"
-        subtitle="Proyecto de e-commerce con Arquitectura Hexagonal y Clean Code"
+        subtitle="E-commerce Project with Clean Architecture and Design System"
       />
       
       <div className={styles.hero}>
@@ -17,19 +17,19 @@ export const Home: React.FC = () => {
           <div className={styles.feature}>
             <span className={styles.icon}>🎨</span>
             <h3>Design System</h3>
-            <p>Componentes reutilizables con CSS Modules y Flexbox</p>
+            <p>Reusable components with CSS Modules and Flexbox</p>
           </div>
           
           <div className={styles.feature}>
             <span className={styles.icon}>🏗️</span>
             <h3>Clean Architecture</h3>
-            <p>Separación de capas: Domain, Application, Infrastructure</p>
+            <p>Layer separation: Domain, Application, Infrastructure</p>
           </div>
           
           <div className={styles.feature}>
             <span className={styles.icon}>⚡</span>
             <h3>TypeScript</h3>
-            <p>Tipado fuerte para mayor seguridad y mantenibilidad</p>
+            <p>Strong typing for better security and maintainability</p>
           </div>
         </div>
 
