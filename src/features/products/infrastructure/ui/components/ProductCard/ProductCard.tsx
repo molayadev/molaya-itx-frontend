@@ -9,7 +9,7 @@ export interface ProductCardProps {
 }
 
 const formatPrice = (price: number): string => {
-  return isNaN(price) ? 'No disponible' : `${price.toFixed(2)} €`;
+  return isNaN(price) ? 'Unavailable' : `${price.toFixed(2)} €`;
 };
 
 const isUnavailable = (price: number): boolean => isNaN(price);
