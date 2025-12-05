@@ -22,7 +22,6 @@ export class Cart {
     );
 
     if (existingIndex !== -1) {
-      // Item exists, sum quantities
       const existingItem = this.items[existingIndex];
       const newQuantity = existingItem.quantity + newItem.quantity;
 
@@ -35,7 +34,6 @@ export class Cart {
         quantity: newQuantity,
       };
     } else {
-      // New item, add to cart
       this.items.push(newItem);
     }
 

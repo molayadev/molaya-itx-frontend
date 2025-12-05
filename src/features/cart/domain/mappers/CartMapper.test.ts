@@ -160,7 +160,6 @@ describe('CartMapper', () => {
       };
 
       const cart = CartMapper.fromStorage(dto);
-      // Invalid date creates "Invalid Date" object, which is still a Date
       expect(cart.getLastUpdated().toString()).toBe('Invalid Date');
     });
 
